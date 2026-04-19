@@ -20,37 +20,69 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    // {
-    //   name: 'setup',
-    //   testDir: './fixtures',
-    //   testMatch: '**/global.setup.ts',
-    // },
+    {
+      name: 'setup-chromium',
+      testDir: './fixtures',
+      testMatch: '**/global.setup.ts',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'setup-firefox',
+      testDir: './fixtures',
+      testMatch: '**/global.setup.ts',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'setup-webkit',
+      testDir: './fixtures',
+      testMatch: '**/global.setup.ts',
+      use: { ...devices['Desktop Safari'] },
+    },
+
+    // Authenticated projects
     {
       name: 'chromium',
-      use: { 
+      use: {
         ...devices['Desktop Chrome'],
-        // storageState: 'storageState.json'
+        storageState: 'storageState.setup-chromium.json',
       },
-      // dependencies: ['setup'],
-      // testIgnore: '**/unauthenticated/**',
+      dependencies: ['setup-chromium'],
+      testIgnore: '**/unauthenticated/**',
     },
     {
       name: 'firefox',
-      use: { 
+      use: {
         ...devices['Desktop Firefox'],
-        // storageState: 'storageState.json'
+        storageState: 'storageState.setup-firefox.json',
       },
-      // dependencies: ['setup'],
-      // testIgnore: '**/unauthenticated/**',
+      dependencies: ['setup-firefox'],
+      testIgnore: '**/unauthenticated/**',
     },
     {
       name: 'webkit',
-      use: { 
+      use: {
         ...devices['Desktop Safari'],
-        // storageState: 'storageState.json'
+        storageState: 'storageState.setup-webkit.json',
       },
-      // dependencies: ['setup'],
-      // testIgnore: '**/unauthenticated/**',
-    }
+      dependencies: ['setup-webkit'],
+      testIgnore: '**/unauthenticated/**',
+    },
+
+    // Unauthenticated projects
+    {
+      name: 'chromium-unauthenticated',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: '**/unauthenticated/**',
+    },
+    {
+      name: 'firefox-unauthenticated',
+      use: { ...devices['Desktop Firefox'] },
+      testMatch: '**/unauthenticated/**',
+    },
+    {
+      name: 'webkit-unauthenticated',
+      use: { ...devices['Desktop Safari'] },
+      testMatch: '**/unauthenticated/**',
+    },
   ],
 });
